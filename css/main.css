@@ -1,0 +1,108 @@
+
+/* Global */
+
+@supports (font-variation-settings: "wght" 900) {
+  * {
+    font-family: "Albert Sans";
+    font-weight: 900;
+  }
+}
+
+
+* {
+  padding: 0;
+  margin: 0;  
+  font-family: "Albert Sans";
+  font-weight: 900;
+}
+
+
+html {
+  box-sizing: border-box;    
+}
+
+
+body {
+  background: #fffdfd;    
+}
+
+
+:root {
+  --primary-text-color: #484242;
+  --flat-yellow-color: #f5bf6f;
+  --brown-text: #78624a;
+  --text-field-bkgd-color: rgba(216, 218, 223, 0.3);
+  --main-text: normal 700 1em "Anonymous Pro", sans-serif;
+  --header-text: normal 900 2em "Albert Sans", serif;
+}
+
+
+header {
+  width: 85%;
+  height: 50px;
+  padding: 25px 0;    
+  margin: 3% auto 0 auto;
+}
+
+
+header h1 {
+  font-optical-sizing: auto;
+  font: var(--header-text);
+  color: var(--primary-text-color);   
+}
+
+
+main {
+  width: 640px;
+  height: 500px;
+  margin: 10% auto 0 auto;
+}
+
+
+p {
+  font: var(--main-text);
+  color: var(--primary-text-color);
+  margin: 10px 0;    
+}
+
+
+input[type='text'] {
+  font: var(--main-text);
+  background: var(--text-field-bkgd-color);   
+  width: 100%;
+  height: 40px;
+  border: 1px solid #ede7e7;
+  border-radius: 10px;  
+  margin-bottom: 25px;
+  padding-left: 15px;
+  outline-color: #ede7e7;
+}
+
+
+textarea {
+  font: var(--main-text);
+  background: var(--text-field-bkgd-color);   
+  width: 100%;
+  height: 150px;
+  border: 1px solid #ede7e7;
+  border-radius: 10px;  
+  margin-bottom: 25px;
+  padding-top: 15px; 
+  padding-left: 15px;  
+  outline-color: #ede7e7;   
+  resize: none;
+}
+
+
+button {  
+  font: var(--main-text);
+  background: var(--flat-yellow-color); 
+  color: var(--primary-text-color);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 150px;
+  height: 45px;
+  float: right;
+}
+
