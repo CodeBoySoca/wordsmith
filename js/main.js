@@ -1,7 +1,7 @@
 const saveButton = document.querySelector('button');
 const txtFld = document.querySelectorAll('.txtFld');
 
-function randomWord(){
+function randomWord() {
     //Generate random word for The Word of the Day and initial value for text fields
     const words = [
         {word: 'presage', wordType: 'verb',  definition: 'To give or be a sign of something that will happen'},
@@ -28,11 +28,18 @@ function randomWord(){
     }); 
 }
 
-function clearFields() {
-    //if a text field is clicked all the fields placeholder values will be removed
-    document.querySelector('#word').removeAttribute('placeholder');
-    document.querySelector('#word_type').removeAttribute('placeholder');
-    document.querySelector('textarea').removeAttribute('placeholder');
+function clearFields(attr) {
+    //removes the attribute passed in as an argument on the text fields
+    if(attr === 'value'){
+        document.querySelector('#word').value='';
+        document.querySelector('#word_type').value='';
+        document.querySelector('textarea').value='';
+
+    } else {
+        document.querySelector('#word').removeAttribute(attr);
+        document.querySelector('#word_type').removeAttribute(attr);
+        document.querySelector('textarea').removeAttribute(attr);
+    }
 }
 
 function notificationBar() {
@@ -42,17 +49,37 @@ function notificationBar() {
    document.querySelector('body').appendChild(notificationTemplate.content);
 }
 
+function wordDataStore() {
+    const words =  { 
+      "word" : document.querySelector('#word').value,
+      "type" : document.querySelector('#word_type').value, 
+      "definition" : document.querySelector('textarea').value
+    }
+    let wordBank = JSON.parse(localStorage.getItem('words') || '[]');
+    words.id = Date.now(); 
+    wordBank.push(words)
+    localStorage.setItem('words', JSON.stringify(wordBank));
+    clearFields('value');
+}
+
+function validateFields() {    
+}
+
+function uppercaseWord(word) {
+}
+
 document.addEventListener('DOMContentLoaded', (e) => {
     const word = randomWord();
 });
 
 txtFld.forEach((fld) => {
     fld.addEventListener('click', (e) => {
-       clearFields(); 
+       clearFields('placeholder'); 
     });
 });
 
 saveButton.addEventListener('click', (e) => {
     e.preventDefault();
+    wordDataStore();
     notificationBar();
 });
