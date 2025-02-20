@@ -1,7 +1,8 @@
 const saveButton = document.querySelector('button');
+const txtFld = document.querySelectorAll('.txtFld');
 
 function randomWord(){
-    //Generate random word for The Word of the Day and initial value for textfields
+    //Generate random word for The Word of the Day and initial value for text fields
     const words = [
         {word: 'presage', wordType: 'verb',  definition: 'To give or be a sign of something that will happen'},
         {word: 'propensity', wordType: 'noun', definition: 'A strong natural tendency to do something'},
@@ -17,7 +18,6 @@ function randomWord(){
         {word: 'quiescent', wordType: 'adj', definition: 'Marked by inactivity or causing no trouble'},
         {word: 'chutzpah', wordType: 'noun', definition: 'Extreme self-confidence or audacity'}
     ];
-
     const random_word =  Math.floor(Math.random() * words.length);
     return words.filter((word, index) => { 
         if(index == random_word){
@@ -28,12 +28,31 @@ function randomWord(){
     }); 
 }
 
+function clearFields() {
+    //if a text field is clicked all the fields placeholder values will be removed
+    document.querySelector('#word').removeAttribute('placeholder');
+    document.querySelector('#word_type').removeAttribute('placeholder');
+    document.querySelector('textarea').removeAttribute('placeholder');
+}
 
+function notificationBar() {
+   const notificationBar =  `<div class='notification-bar'><p>Word saved &#x1f973;</p></div>`;
+   const notificationTemplate = document.createElement('template');
+   notificationTemplate.innerHTML=notificationBar;
+   document.querySelector('body').appendChild(notificationTemplate.content);
+}
 
 document.addEventListener('DOMContentLoaded', (e) => {
     const word = randomWord();
-})
+});
+
+txtFld.forEach((fld) => {
+    fld.addEventListener('click', (e) => {
+       clearFields(); 
+    });
+});
 
 saveButton.addEventListener('click', (e) => {
-  
-})
+    e.preventDefault();
+    notificationBar();
+});
