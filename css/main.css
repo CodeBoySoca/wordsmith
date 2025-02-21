@@ -1,12 +1,19 @@
 
-/* Global */
-
 @supports (font-variation-settings: "wght" 900) {
   * {
     font-family: "Albert Sans";
     font-weight: 900;
   }
 }
+
+:root {
+    --primary-text-color: #484242;
+    --flat-yellow-color: #f5bf6f;
+    --brown-text: #78624a;
+    --text-field-bkgd-color: rgba(216, 218, 223, 0.3);
+    --main-text: normal 700 1em "Anonymous Pro", sans-serif;
+    --header-text: normal 900 2em "Albert Sans", serif;
+  }
 
 * {
   padding: 0;
@@ -23,15 +30,6 @@ body {
   background: #fffdfd;    
 }
 
-:root {
-  --primary-text-color: #484242;
-  --flat-yellow-color: #f5bf6f;
-  --brown-text: #78624a;
-  --text-field-bkgd-color: rgba(216, 218, 223, 0.3);
-  --main-text: normal 700 1em "Anonymous Pro", sans-serif;
-  --header-text: normal 900 2em "Albert Sans", serif;
-}
-
 header {
   width: 85%;
   height: 50px;
@@ -43,6 +41,58 @@ header h1 {
   font-optical-sizing: auto;
   font: var(--header-text);
   color: var(--primary-text-color);   
+}
+
+
+#theme-changer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;  
+  width: 200px;
+  position: absolute;
+  top: 60px;
+  right: 50px;
+}
+
+menu:first-of-type {
+  width: 125px;
+  height: 15px; 
+  /* border: 1px solid rgba(212,212,212, 0.9);  */  
+  border-radius: 15px;  
+  padding: 5px; 
+}
+
+menu li {
+  display: inline-block;  
+  list-style-type: none; 
+  width: 15px;
+  height: 15px;
+  border-radius: 10px;  
+  cursor: pointer;
+}
+
+menu li:nth-child(1) {
+  background: #000;
+  margin-left: 8px;
+}
+
+menu li:nth-child(2) {
+  background: #ccc;
+}
+
+menu li:nth-child(3) {
+  background: #ccc;
+}
+
+menu li:nth-child(4) {
+  background: #ccc;
+}
+
+menu:last-of-type {
+  width: 100px;
+  height: 20px; 
+  padding: 3px 3px 3px 25px; 
+  cursor: pointer;
 }
 
 main {
@@ -107,6 +157,137 @@ button {
   slideOutFromBottom 2s ease forwards 2.3s;
 }
 
+/* Page overlay */
+
+#overlay {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #fffdfd;
+  padding: 1%;
+}
+
+#overlay header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 85%;
+  height: 50px;
+}
+
+#close {
+  width: 50px;
+  cursor: pointer;
+}
+
+#overlay h2 {
+  width: 25%; 
+  font:  normal 900 1,4em "Albert Sans", serif;
+}
+
+#overlay-content {
+  width: 85%;
+  margin: 3% auto 0 auto;
+}
+
+#overlay-content h4 {
+  font: normal 900 1.2em"Albert Sans", serif;
+  text-transform: capitalize;
+
+}
+
+#overlay-content sup {
+  font: italic 700 0.9em "Anonymous Pro", sans-serif;
+  color:#484242;
+}
+
+#overlay-content p {
+   font: var(--main-text); 
+   text-transform: capitalize;
+   margin-bottom: 30px;
+}
+
+#overlay footer {
+  width: 100%;
+  background: var(--flat-yellow-color);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 3%
+}
+
+#overlay footer h2 {
+  width: 45%; 
+}
+
+#overlay footer p {
+  font: var(--main-text); 
+  text-transform: capitalize;
+}
+
+#overlay footer p:nth-child(odd) {
+  font: italic 700 0.9em "Anonymous Pro", sans-serif;
+  color:#484242;
+}
+
+#overlay footer p:nth-child(even) {
+  font: normal 900 1em "Anonymous Pro", sans-serif;
+}
+
+footer div {
+  width: 75%;
+  margin: 0 auto;
+}
+
+.slideOverlay {
+ /* animation here */
+}
+
+/***********/
+
+/* Keyframe animations and transitions */
+
+@keyframes slideLeft {
+  0% {
+  }
+  50% {
+  }
+  100% {
+  }
+}
+
+@keyframes fadeInItem {
+    0% {
+      opacity: 0;   
+    }
+
+    100% {
+      opacity: 1;
+    }
+}
+
+@keyframes fadeOutItem {
+    0% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+    }
+}
+
+@keyframes highlightText {
+    0% {
+
+    }
+
+    100% {
+
+    }
+}
+
 @keyframes slideInFromBottom {
     from {
       bottom: -75vh;
@@ -128,3 +309,5 @@ button {
       opacity: 0;
     }
   }
+
+  /***********/

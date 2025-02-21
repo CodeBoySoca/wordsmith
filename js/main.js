@@ -1,7 +1,8 @@
-const saveButton = document.querySelector('button');
+const saveButton = document.querySelector('#save-button');
+const overlayButton = document.querySelector('#overlay-button');
 const txtFld = document.querySelectorAll('.txtFld');
 
-function randomWord() {
+function getRandomWord() {
     //Generate random word for The Word of the Day and initial value for text fields
     const words = [
         {word: 'presage', wordType: 'verb',  definition: 'To give or be a sign of something that will happen'},
@@ -18,18 +19,23 @@ function randomWord() {
         {word: 'quiescent', wordType: 'adj', definition: 'Marked by inactivity or causing no trouble'},
         {word: 'chutzpah', wordType: 'noun', definition: 'Extreme self-confidence or audacity'}
     ];
-    const random_word =  Math.floor(Math.random() * words.length);
-    return words.filter((word, index) => { 
-        if(index == random_word){
-             document.querySelector('#word').placeholder=word.word;
-             document.querySelector('#word_type').placeholder=word.wordType;
-             document.querySelector('#definition').placeholder=word.definition;
+    const randomWordResult =  Math.floor(Math.random() * words.length);
+    const randomWord = words.filter((word, index) => { 
+        if(index == randomWordResult){
+           return word;
         }
     }); 
+    return randomWord;
 }
 
+function placeholderText(wordOfTheDay){
+    document.querySelector('#word').placeholder=wordOfTheDay[0].word;
+    document.querySelector('#word_type').placeholder=wordOfTheDay[0].wordType;
+    document.querySelector('#definition').placeholder=wordOfTheDay[0].definition;
+} 
+
 function clearFields(attr) {
-    //removes the attribute passed in as an argument on the text fields
+    //Removes the attribute passed in as an argument on the text fields
     if(attr === 'value'){
         document.querySelector('#word').value='';
         document.querySelector('#word_type').value='';
@@ -50,27 +56,69 @@ function notificationBar() {
 }
 
 function wordDataStore() {
+    //Store words from the text fields in object and then add them to localStorage and 
+    //call clearFields() to clear the text fields
     const words =  { 
-      "word" : document.querySelector('#word').value,
-      "type" : document.querySelector('#word_type').value, 
-      "definition" : document.querySelector('textarea').value
-    }
+      id:  Date.now(),    
+      word : document.querySelector('#word').value,
+      type : document.querySelector('#word_type').value, 
+      definition : document.querySelector('textarea').value
+    };
     let wordBank = JSON.parse(localStorage.getItem('words') || '[]');
-    words.id = Date.now(); 
-    wordBank.push(words)
+    wordBank.push(words);
     localStorage.setItem('words', JSON.stringify(wordBank));
     clearFields('value');
+}
+
+function wordLibraryOverlay(){
+    let wordData = localStorage.getItem('words'); 
+    //let result = wordData.replace(/,(?=[^\]]*})/g, '');
+    let words = JSON.parse(wordData);
+    if(words){
+        const wordOfTheDay = getRandomWord();
+        const pageOverlay = `
+                <div id='overlay'>
+                    <header>
+                        <h2>Word library</h2>
+                        <div id="close">[ X ]</div>
+                    </header>
+                    <div id="overlay-content">
+                       ${words.map(word => {
+                        return `<h4>${word.word}</h4><sup>${word.type}</sup><p>${word.definition}</p>`;}).join('')} 
+                    </div>
+                    <footer>
+                    <div>
+                        <h2>Word of the day</h2>
+                        <p>${wordOfTheDay[0].word}</p> 
+                        <p>${wordOfTheDay[0].wordType}</p> 
+                        <p>${wordOfTheDay[0].definition}</p> 
+                    </div>
+                    </footer>
+                </div>`;
+        const pageOverlayTemplate = document.createElement('template');
+        pageOverlayTemplate.innerHTML=pageOverlay;
+        document.querySelector('body').appendChild(pageOverlayTemplate.content); 
+        document.querySelector('#close').addEventListener('click', (e) => { 
+            slidePageOverlay('#overlay');
+        });
+    } else {
+       `<h2>No words &#x1f636;</h2><p>No words and definitions we&apos;re saved</p>`;
+    }
 }
 
 function validateFields() {    
 }
 
-function uppercaseWord(word) {
+function slidePageOverlay(pageOverlay){
+   document.querySelector(pageOverlay).remove();
 }
 
 document.addEventListener('DOMContentLoaded', (e) => {
-    const word = randomWord();
+    e.preventDefault();
+    const wordOfTheDay = getRandomWord();
+    placeholderText(wordOfTheDay);
 });
+
 
 txtFld.forEach((fld) => {
     fld.addEventListener('click', (e) => {
@@ -78,8 +126,13 @@ txtFld.forEach((fld) => {
     });
 });
 
+
 saveButton.addEventListener('click', (e) => {
     e.preventDefault();
     wordDataStore();
     notificationBar();
 });
+
+overlayButton.addEventListener('click', (e) => {
+   wordLibraryOverlay();
+})
