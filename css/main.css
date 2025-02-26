@@ -40,9 +40,8 @@ header {
 header h1 {
   font-optical-sizing: auto;
   font: var(--header-text);
-  color: var(--primary-text-color);   
+  color: var(--primary-text-color);  
 }
-
 
 #theme-changer {
   display: flex;
@@ -50,7 +49,7 @@ header h1 {
   justify-content: space-around;  
   width: 200px;
   position: absolute;
-  top: 60px;
+  top: 55px;
   right: 50px;
 }
 
@@ -93,6 +92,19 @@ menu:last-of-type {
   height: 20px; 
   padding: 3px 3px 3px 25px; 
   cursor: pointer;
+}
+
+#overlay-button {
+  width: 100%;
+}
+
+#overlay-button i:first-of-type {
+  font-size: 1.4em;
+}
+
+#overlay-button i:last-of-type {
+  font-size: 1.7em;
+  margin-left: 20px;
 }
 
 main {
@@ -159,7 +171,7 @@ button {
 
 /* Page overlay */
 
-#overlay {
+#library-overlay {
   width: 100%;
   height: 100vh;
   position: absolute;
@@ -169,7 +181,7 @@ button {
   padding: 1%;
 }
 
-#overlay header {
+#library-overlay header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -182,9 +194,9 @@ button {
   cursor: pointer;
 }
 
-#overlay h2 {
+#library-overlay h2 {
   width: 25%; 
-  font:  normal 900 1,4em "Albert Sans", serif;
+  font:  normal 900 1.4em "Albert Sans", serif;
 }
 
 #overlay-content {
@@ -209,7 +221,7 @@ button {
    margin-bottom: 30px;
 }
 
-#overlay footer {
+#library-overlay footer {
   width: 100%;
   background: var(--flat-yellow-color);
   position: fixed;
@@ -218,21 +230,21 @@ button {
   padding: 3%
 }
 
-#overlay footer h2 {
+#library-overlay footer h2 {
   width: 45%; 
 }
 
-#overlay footer p {
+#library-overlay footer p {
   font: var(--main-text); 
   text-transform: capitalize;
 }
 
-#overlay footer p:nth-child(odd) {
+#library-overlay footer p:nth-child(odd) {
   font: italic 700 0.9em "Anonymous Pro", sans-serif;
   color:#484242;
 }
 
-#overlay footer p:nth-child(even) {
+#library-overlay footer p:nth-child(even) {
   font: normal 900 1em "Anonymous Pro", sans-serif;
 }
 
@@ -244,6 +256,59 @@ footer div {
 .slideOverlay {
  /* animation here */
 }
+
+/***********/
+
+
+/*  Word of The Day subscription */
+
+#overlay {
+  background: rgba(0,0,0,0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 9;
+}
+
+#popover {
+  background: #fafafa;
+  width: 550px;
+  height: 220px;
+  border-radius: 15px;
+  margin: 25% auto 0 auto;
+  padding: 3% 5%;
+}
+
+#popover h2 {
+  width: 75%; 
+  font:  normal 900 1.4em "Albert Sans", serif;
+  margin-top: 35px;
+}
+
+#popover p {
+  font: normal 900 1em "Anonymous Pro", sans-serif;
+}
+
+#popover input {
+  width: 98%;
+  height: 40px;
+  font: normal 900 1em "Anonymous Pro", sans-serif;
+  border: 1px solid rgba(212,212,212,0.5);
+  padding-left: 5px;
+  margin: 10px 0;
+  outline-color: rgba(212,212,212,0.9);
+}
+
+#popover input::placeholder {
+  padding-left: 5px;
+}
+
+#popover button {
+  cursor: pointer
+}
+
 
 /***********/
 

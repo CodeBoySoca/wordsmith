@@ -1,5 +1,6 @@
 const saveButton = document.querySelector('#save-button');
-const overlayButton = document.querySelector('#overlay-button');
+const bookmarkButton = document.querySelector('#bookmark');
+const mailButton = document.querySelector('#subscribe');
 const txtFld = document.querySelectorAll('.txtFld');
 
 function getRandomWord() {
@@ -26,6 +27,21 @@ function getRandomWord() {
         }
     }); 
     return randomWord;
+}
+
+function popoverWindow(){
+   const popover = `
+      <div id="overlay">
+        <div id="popover">
+           <h2>Get The Word of The Day</h2>
+           <p>Enter your email to get the Word of the Day sent to you</p>
+           <input type="email" name="email" placeholder="E-mail address" required><br>
+           <button type="button">Subscribe</button>
+        </div>
+      </div>`;
+   const popoverTemplate = document.createElement('template');
+   popoverTemplate.innerHTML = popover;
+   document.querySelector('body').appendChild(popoverTemplate.content);
 }
 
 function placeholderText(wordOfTheDay){
@@ -72,12 +88,11 @@ function wordDataStore() {
 
 function wordLibraryOverlay(){
     let wordData = localStorage.getItem('words'); 
-    //let result = wordData.replace(/,(?=[^\]]*})/g, '');
     let words = JSON.parse(wordData);
     if(words){
         const wordOfTheDay = getRandomWord();
         const pageOverlay = `
-                <div id='overlay'>
+                <div id='library-overlay'>
                     <header>
                         <h2>Word library</h2>
                         <div id="close">[ X ]</div>
@@ -99,7 +114,7 @@ function wordLibraryOverlay(){
         pageOverlayTemplate.innerHTML=pageOverlay;
         document.querySelector('body').appendChild(pageOverlayTemplate.content); 
         document.querySelector('#close').addEventListener('click', (e) => { 
-            slidePageOverlay('#overlay');
+            slidePageOverlay('#library-overlay');
         });
     } else {
        `<h2>No words &#x1f636;</h2><p>No words and definitions we&apos;re saved</p>`;
@@ -115,10 +130,9 @@ function slidePageOverlay(pageOverlay){
 
 document.addEventListener('DOMContentLoaded', (e) => {
     e.preventDefault();
-    const wordOfTheDay = getRandomWord();
-    placeholderText(wordOfTheDay);
+    const randomWord = getRandomWord();
+    placeholderText(randomWord);
 });
-
 
 txtFld.forEach((fld) => {
     fld.addEventListener('click', (e) => {
@@ -126,13 +140,16 @@ txtFld.forEach((fld) => {
     });
 });
 
-
 saveButton.addEventListener('click', (e) => {
     e.preventDefault();
     wordDataStore();
     notificationBar();
 });
 
-overlayButton.addEventListener('click', (e) => {
+bookmarkButton.addEventListener('click', (e) => {
    wordLibraryOverlay();
+})
+
+mailButton.addEventListener('click', () => {
+    popoverWindow();
 })
