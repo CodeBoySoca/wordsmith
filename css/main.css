@@ -279,6 +279,7 @@ footer div {
   border-radius: 15px;
   margin: 25% auto 0 auto;
   padding: 3% 5%;
+  z-index: 9999;
 }
 
 #popover h2 {
