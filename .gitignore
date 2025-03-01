@@ -2,5 +2,5 @@
 .DS_Store
 requirements.md
 dev-2025.code-workspace
-/api/.env
+.env
 venv
